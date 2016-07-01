@@ -127,20 +127,20 @@
 #' )
 #' }
 
-gvisTimeline <- function(data, rowlabel="", barlabel="", start="", 
+gvisTimeline <- function(data, rowlabel="", barlabel="", tooltip="", start="", 
                          end="", options=list(), chartid){
 
   my.type <- "Timeline"
   dataName <- deparse(substitute(data))
 
   my.options <- list(gvis=modifyList(list(width=600, height=200),options), dataName=dataName,
-                     data=list(rowlabel=rowlabel, barlabel=barlabel, start=start, end=end,
+                     data=list(rowlabel=rowlabel, barlabel=barlabel, tooltip=tooltip, start=start, end=end,
                        allowed=c("number", "string", "date", "datetime"))
                      )
 
  
   checked.data <- gvisCheckTimelineData(data, rl=rowlabel, bl=barlabel,
-                                        start=start, end=end)
+                                        start=start, end=end, tt=tooltip)
   
   output <- gvisChart(type=my.type, checked.data=checked.data, options=my.options,
                       chartid=chartid, package="timeline") 
@@ -148,11 +148,11 @@ gvisTimeline <- function(data, rowlabel="", barlabel="", start="",
   return(output)
 }
 
-gvisCheckTimelineData <- function(data, rl, bl, start, end){
+gvisCheckTimelineData <- function(data, rl, bl, start, end, tt){
 
-  if(any(c(rl, bl, start, end) %in% ""))
+  if(any(c(rl, bl, start, end, tt) %in% ""))
     return(data)
   else  
-    return(data[, c(rl, bl, start, end)])
+    return(data[, c(rl, bl, start, end, tt)])
 }
 
