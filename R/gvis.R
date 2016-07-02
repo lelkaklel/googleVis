@@ -200,8 +200,16 @@ var options = {};
 %s
 %s
 %s
+function myHandler(e){
+        if(e.row != null){
+  $(".google-visualization-tooltip").html(data.getValue(e.row,4)).css({width:"auto",height:"auto"});
+}        
+  }
+  
+  google.visualization.events.addListener(chart, "onmouseover", myHandler);
 }
 %s  
+
 '
   jsDrawChart <- sprintf(jsDrawChart, chartid,  chartid,
                          paste(gvisOptions(options), collapse="\n"),
